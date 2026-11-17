@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
+import NavLinks from "./NavLinks";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "America/Argentina/Buenos_Aires",
@@ -31,8 +32,7 @@ export default function Header() {
     getToday,
     getServerDate,
   );
-  const inMeetings = pathname === "/meetings" || pathname.startsWith("/meetings/");
-
+  
   return (
     <header className="home-nav shrink-0 print:hidden">
       <nav
@@ -50,18 +50,7 @@ export default function Header() {
           <p className="min-h-4 text-xs">{today}</p>
         </div>
 
-        <div className="flex items-center gap-3 sm:gap-6">
-          <Link href="/meetings/upcoming" className="hover:underline">
-                This Week
-            </Link>
-          <Link
-            href="/meetings"
-            aria-current={pathname === "/meetings" ? "page" : undefined}
-            className={inMeetings ? "underline underline-offset-4" : "hover:underline"}
-          >
-            Past Meetings
-          </Link>
-        </div>
+        <NavLinks />
       </nav>
     </header>
   );
