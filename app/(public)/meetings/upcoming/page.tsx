@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { formatMeetingDate } from "../../../components/MeetingCard";
-import { getUpcomingSunday } from "../../../lib/meeting-dates";
-import { getMeetings } from "../../../lib/meetings-db";
+import { formatMeetingDate } from "../../../../components/MeetingCard";
+import { getUpcomingSunday } from "../../../../lib/meeting-dates";
+import { getMeetings } from "../../../../lib/meetings-db";
 
 export const dynamic = "force-dynamic";
 
@@ -20,9 +20,9 @@ const agendaFields = [
   "Closing Prayer",
 ];
 
-export default function UpcomingMeetingPage() {
+export default async function UpcomingMeetingPage() {
   const sunday = getUpcomingSunday();
-  const [meeting] = getMeetings(sunday);
+  const [meeting] = await getMeetings(sunday);
 
   if (meeting) {
     redirect(`/meetings/${meeting.id}`);

@@ -42,10 +42,10 @@ function ProgramSummary({ meeting }: { meeting: SacramentMeeting }) {
   );
 }
 
-export default function Home() {
+export default async function Home() {
   const today = getWardToday();
   const sunday = getUpcomingSunday(today);
-  const meetings = getMeetings();
+  const meetings = await getMeetings();
   const upcomingMeeting = meetings.find((meeting) => meeting.date === sunday);
   const recentMeetings = meetings
     .filter((meeting) => meeting.date < today)

@@ -2,8 +2,8 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import MeetingDetail from "../../../components/MeetingDetail";
-import type { SacramentMeeting } from "../../../lib/types";
+import MeetingDetail from "../../../../components/MeetingDetail";
+import type { SacramentMeeting } from "../../../../lib/types";
 
 type ProgramResult =
   | { meeting: SacramentMeeting }
