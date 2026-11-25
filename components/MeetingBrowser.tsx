@@ -11,14 +11,14 @@ export default function MeetingBrowser({
   pagination,
 }: {
   meetings: SacramentMeeting[];
-  pagination: ReactNode;
+  pagination?: ReactNode;
 }) {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const selected =
     meetings.find((meeting) => meeting.id === selectedId) ?? meetings[0];
 
   if (!selected) {
-    return <p>No past meeting programs are available.</p>;
+    return <p>No meeting programs are available.</p>;
   }
 
   return (

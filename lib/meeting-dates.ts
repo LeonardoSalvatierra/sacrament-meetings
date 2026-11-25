@@ -16,3 +16,9 @@ export function getUpcomingSunday(today = getWardToday()): string {
   sunday.setUTCDate(sunday.getUTCDate() + daysUntilSunday);
   return sunday.toISOString().slice(0, 10);
 }
+export function getWardWeek(today = getWardToday()) {
+  const end = getUpcomingSunday(today);
+  const monday = new Date(`${end}T00:00:00Z`);
+  monday.setUTCDate(monday.getUTCDate() - 6);
+  return { start: monday.toISOString().slice(0, 10), end };
+}

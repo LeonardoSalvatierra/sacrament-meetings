@@ -109,6 +109,7 @@ function finishMutation() {
   revalidatePath("/meetings");
   revalidatePath("/meetings/admin");
   revalidatePath("/meetings/upcoming");
+  revalidatePath("/meetings/this-week");
   revalidatePath("/meetings/current");
   revalidatePath("/meetings/[id]", "page");
 }

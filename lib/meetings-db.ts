@@ -13,9 +13,12 @@ function getSql() {
 
 export async function getMeetings(
   date?: string | null,
+  range?: { start: string; end: string },
 ): Promise<SacramentMeeting[]> {
   const sql = getSql();
   const dateFilter = date || null;
+  const start = range?.start ?? null;
+  const end = range?.end ?? null;
 
   const rows = await sql`
     SELECT
@@ -34,19 +37,16 @@ export async function getMeetings(
       closing_hymn AS "closingHymn",
       closing_prayer AS "closingPrayer"
     FROM meetings
-    WHERE ${dateFilter}::text IS NULL
-       OR to_char(date, 'YYYY-MM-DD') = ${dateFilter}
+    WHERE (${dateFilter}::text IS NULL OR to_char(date, 'YYYY-MM-DD') = ${dateFilter})
+      AND (${start}::date IS NULL OR date >= ${start}::date)
+      AND (${end}::date IS NULL OR date <= ${end}::date)
     ORDER BY meetings.date DESC
   `;
 
   return rows as unknown as SacramentMeeting[];
 }
 
-export async function getPastMeetingsPage(
-  today: string,
-  query: string,
-  requestedPage: number,
-) {
+export async function getMeetingsPage(query: string, requestedPage: number) {
   const sql = getSql();
   const search = `%${query}%`;
 
@@ -68,8 +68,7 @@ export async function getPastMeetingsPage(
         closing_hymn AS "closingHymn",
         closing_prayer AS "closingPrayer"
       FROM meetings
-      WHERE date < ${today}::date
-        AND (
+      WHERE (
           ${query} = ''
           OR presiding ILIKE ${search}
           OR conducting ILIKE ${search}

@@ -1,8 +1,7 @@
 import Link from "next/link";
 import MeetingBrowser from "../../../components/MeetingBrowser";
 import MeetingSearch from "../../../components/MeetingSearch";
-import { getWardToday } from "../../../lib/meeting-dates";
-import { getPastMeetingsPage } from "../../../lib/meetings-db";
+import { getMeetingsPage } from "../../../lib/meetings-db";
 
 export const dynamic = "force-dynamic";
 
@@ -25,11 +24,7 @@ export default async function MeetingsPage({
   const requestedPage =
     Number.isSafeInteger(pageNumber) && pageNumber > 0 ? pageNumber : 1;
 
-  const { meetings, currentPage, totalPages } = await getPastMeetingsPage(
-    getWardToday(),
-    query,
-    requestedPage,
-  );
+  const { meetings, currentPage, totalPages } = await getMeetingsPage(query, requestedPage);
 
   function pageHref(page: number) {
     const nextParams = new URLSearchParams({ page: String(page) });
@@ -40,7 +35,7 @@ export default async function MeetingsPage({
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 md:py-14">
       <h1 className="mb-6 text-3xl font-semibold text-[var(--primary-color)] md:text-4xl">
-        Sunday Programs
+        All Meetings
       </h1>
 
       <MeetingSearch />
@@ -85,7 +80,7 @@ export default async function MeetingsPage({
         />
       ) : (
         <p>
-          {query ? "No programs match your search." : "No past meeting programs are available."}
+          {query ? "No programs match your search." : "No meeting programs are available."}
         </p>
       )}
     </main>
