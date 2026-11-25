@@ -33,9 +33,9 @@ export default function MeetingCard({
     <>
       <article className="flex flex-col gap-3 rounded-xl border border-[var(--border-color)] bg-[var(--surface-bg)] p-5 lg:hidden">
         <div>
-          <h3 className="text-lg font-semibold text-[var(--primary-color)]">
+          <h2 className="text-lg font-semibold text-[var(--primary-color)]">
             <time dateTime={meeting.date}>{date}</time>
-          </h3>
+          </h2>
           <p className="mt-1">{label}</p>
         </div>
 

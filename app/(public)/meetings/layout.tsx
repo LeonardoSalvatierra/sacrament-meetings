@@ -14,6 +14,7 @@ export default function MeetingsLayout({ children }: { children: ReactNode }) {
         >
           Back to Home
         </Link>
+      <Link href="/meetings/admin" className="ml-4 underline underline-offset-4">Manage Meetings</Link>
       </nav>
       {children}
     </>
